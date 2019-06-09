@@ -28,7 +28,7 @@ function! s:open_pr(branch) abort
     let l:url = s:generate_url(l:git_service, l:remote_url, a:branch)
     let l:browser_executable = s:get_browser()
 
-    return system(escape(printf('%s %s', l:browser_executable, l:url), '?&%'))
+    return s:system_async(escape(printf('%s %s', l:browser_executable, l:url), '?&%'))
   catch /.*/
     return s:error(v:exception)
   endtry
@@ -135,6 +135,18 @@ endfunction
 function! s:system(cmd) abort
   let l:output = systemlist(a:cmd)
   return get(l:output, 0, '')
+endfunction
+
+function! s:system_async(cmd) abort
+  if has('nvim') && exists('*jobstart')
+    return jobstart(a:cmd)
+  endif
+
+  if exists('*job_start')
+    return job_start(a:cmd)
+  endif
+
+  return s:system(a:cmd)
 endfunction
 
 function! s:error(msg) abort
