@@ -139,11 +139,11 @@ endfunction
 
 function! s:system_async(cmd) abort
   if has('nvim') && exists('*jobstart')
-    return jobstart(a:cmd)
+    return jobstart(a:cmd, { 'detach': v:true })
   endif
 
   if exists('*job_start')
-    return job_start(a:cmd)
+    return job_start(a:cmd, { 'stoponexit': '' })
   endif
 
   return s:system(a:cmd)
