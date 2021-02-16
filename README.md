@@ -38,6 +38,12 @@ Or if you want to use current branch, just omit the branch name
 If you are using [vim-twiggy](https://github.com/sodapopcan/vim-twiggy),
 select a branch from list and press `pr`.
 
+
+If you want to open only repository page in browser, run this:
+```
+:RepoPage
+```
+
 ## Customization
 
 ### Additional git services

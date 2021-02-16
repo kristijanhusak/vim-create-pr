@@ -18,6 +18,13 @@ function! create_pr#from_twiggy() abort
   return s:open_pr(l:branch.fullname)
 endfunction
 
+function! create_pr#open_repo_page()
+  let l:remote_url = s:get_remote_url()
+  let l:browser_executable = s:get_browser()
+
+  return s:system_async(escape(printf('%s %s', l:browser_executable, l:remote_url), '?&%'))
+endfunction
+
 function! s:open_pr(branch) abort
   try
     call s:check_remote_exists(a:branch)
