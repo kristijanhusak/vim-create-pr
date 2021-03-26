@@ -68,8 +68,9 @@ function! s:get_git_service(remote_url) abort
 endfunction
 
 function! s:get_repo_info_from_remote_url(remote_url) abort
-  let l:is_http = a:remote_url =~? '^http'
-  if l:is_http
+  let l:is_http = a:remote_url =~? '^https\?:\/\/'
+  let l:is_ssh = a:remote_url =~? '^ssh:\/\/'
+  if l:is_http || l:is_ssh
     let l:splits = split(a:remote_url, '/')
     let l:repository = substitute(l:splits[-1], '\.git$', '', '')
     let l:owner = l:splits[-2]
